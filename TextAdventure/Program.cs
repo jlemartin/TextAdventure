@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+ * [Text Adventure]
+ * by JLEM, 11/28/2020
+ *  
+ * This work is a derivative of 
+ * "C# Adventure Game" by http://programmingisfun.com, used under CC BY.
+ * https://creativecommons.org/licenses/by/4.0/
+ * 
+ * Poetry by Robert Frost
+ */
+
+using System;
 
 namespace TextAdventure
 {
@@ -6,15 +17,174 @@ namespace TextAdventure
     {
         static void Main(string[] args)
         {
-            string CharacterName = "John Doe";
+            Game.StartGame();
+            Console.ReadKey();
+       
+        }
+    }
 
+    public static class Game
+    {
+        // character name
+            static string CharacterName = "John Doe";
+        // creating poem arrays
+        static string[] intro = new string[]
+        {
+            "Two roads diverged in a yellow wood,",
+            "And sorry I could not travel both",
+            "And be one traveler, long I stood",
+            "And looked down one as far as I could",
+            "To where it bent in the undergrowth;"
+        };
 
+        static string[] pathA = new string[]
+        {
+            "Whose woods these are I think I know.",
+            "His house is in the village, though;",
+             "He will not see me stopping here",
+             "To watch his woods fill up with snow.",
+             "",
+             "The woods are lovely, dark, and deep,",
+             "But I have promises to keep,",
+             "And miles to go before I sleep,",
+             "And miles to go before I sleep."
+        };
+
+        static string[] pathB = new string[]
+        {
+            "Then took the other, as just as fair,",
+            "And having perhaps the better claim,",
+            "Because it was grassy and wanted wear;",
+            "Though as far as that, the passing there",
+            "Had worn them really about the same",
+            "",
+            "And both that morning equally lay",
+            "In leaves no step had trodden black.",
+            "Oh, I kept the first for another day!",
+            "Yet knowing how way leads on to way,",
+            "I doubted if I should ever come back."
+        };
+
+        static string[] closing = new string[]
+        {
+            "I shall be telling this with a sigh",
+            "Somewhere ages and ages hence:",
+            "Two roads diverged in a wood, and I --",
+            "I took the one less traveled by,",
+            "And that has made all the difference."
+        };
+
+        static string[][] poem = new string[][]
+        {
+            intro,
+            pathA,
+            pathB,
+            closing
+        };
+
+        // print out game and overview
+        public static void StartGame()
+        {
             Console.WriteLine("Game Title");
             Console.WriteLine("Welcome to ...");
-            Console.WriteLine("Please enter your characters's name:");
-            CharacterName = Console.ReadLine();
-            Console.WriteLine("Great, Your character is now named " + CharacterName);
+            NameCharacter();
+            Game.Choice();
+            Game.EndGame();
 
         }
+
+        //ask player for name, and save it
+        public static void NameCharacter()
+        {
+            Console.WriteLine("Please enter your characters's name:");
+            CharacterName = Console.ReadLine();
+            Console.WriteLine("There you go - your character is now named " + CharacterName);
+            Console.WriteLine();
+
+        }
+
+        public static void Dialog(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        public static void Dialog(string message, string color)
+        {
+            if (color == "red")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else if (color == "green")
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            else if (color == "yellow")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+        public static void Choice()
+        {
+            string input = "";
+
+            foreach (var p in poem[0])
+            {
+                Console.WriteLine(p);
+            }
+
+            Console.WriteLine();
+            Console.Write($"{CharacterName}, which road will you take?\n");
+            Console.Write("The main road (A), or the road less traveled by?(B)\n");
+            input = Console.ReadLine();
+            input = input.ToUpper();
+
+            if (input == "A")
+            {
+                Console.WriteLine("You've chosen road A.");
+                Console.WriteLine();
+
+                foreach (var p in poem[1])
+                {
+                    Console.WriteLine(p);
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("You chosen road B:");
+                Console.WriteLine();
+                foreach (var p in poem[2])
+                {
+                    Console.WriteLine(p);
+                }
+                Console.WriteLine();
+            }
+
+        }
+
+        public static void EndGame()
+        {
+            foreach (var p in poem[3])
+            {
+                Console.WriteLine(p);
+            }
+            Console.WriteLine();
+
+        }
+
+    }
+
+    class Item
+    {
+
     }
 }
