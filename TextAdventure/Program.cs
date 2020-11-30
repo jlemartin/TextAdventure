@@ -10,6 +10,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace TextAdventure
 {
@@ -18,7 +19,7 @@ namespace TextAdventure
         static void Main(string[] args)
         {
             Game.StartGame();
-            Console.ReadKey();
+            // Console.ReadKey();
        
         }
     }
@@ -27,6 +28,11 @@ namespace TextAdventure
     {
         // character name
             static string CharacterName = "John Doe";
+        // things found on path
+        static List<string> found = new List<string>();
+        // keep traveling variable
+        static bool traveling = true;
+
         // creating poem arrays
         static string[] intro = new string[]
         {
@@ -74,6 +80,7 @@ namespace TextAdventure
             "And that has made all the difference."
         };
 
+        // an array of string arrays - to hold the poem parts
         static string[][] poem = new string[][]
         {
             intro,
@@ -96,9 +103,9 @@ namespace TextAdventure
         //ask player for name, and save it
         public static void NameCharacter()
         {
-            Console.WriteLine("Please enter your characters's name:");
+            Console.WriteLine("Please enter your traveler's name:");
             CharacterName = Console.ReadLine();
-            Console.WriteLine("There you go - your character is now named " + CharacterName);
+            Console.WriteLine("There you go - your traveler is named " + CharacterName);
             Console.WriteLine();
 
         }
@@ -134,41 +141,63 @@ namespace TextAdventure
 
         public static void Choice()
         {
-            string input = "";
-
-            foreach (var p in poem[0])
+            do
             {
-                Console.WriteLine(p);
-            }
+                string input = "";
+                string cont = "";
 
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Yellow;
+
+                foreach (var p in poem[0])
+                {
+                    Console.WriteLine(p);
+                }
+
+                Console.WriteLine();
+                Console.Write($"{CharacterName}, which road will you take?\n");
+                Console.Write("The main road (A), or the road less traveled by?(B)\n");
+                input = Console.ReadLine();
+                input = input.ToUpper();
+
+                if (input == "A")
+                {
+                    found.Add("Snow");
+                    Console.WriteLine("You've chosen road A.");
+                    Console.WriteLine();
+
+                    foreach (var p in poem[1])
+                    {
+                        Console.WriteLine(p);
+                    }
+                    Console.WriteLine();
+                }
+                else
+                {
+                    found.Add("Road less traveled");
+                    Console.WriteLine("You chosen road B:");
+                    Console.WriteLine();
+                    foreach (var p in poem[2])
+                    {
+                        Console.WriteLine(p);
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("Do you want to continue traveling? Y/N");
+                cont = Console.ReadLine().ToUpper();
+                if (cont == "Y")
+                {
+                    traveling = true;
+                }
+                else
+                {
+                    traveling = false;
+                }
+            } while (traveling);
+
+            Console.ResetColor();
             Console.WriteLine();
-            Console.Write($"{CharacterName}, which road will you take?\n");
-            Console.Write("The main road (A), or the road less traveled by?(B)\n");
-            input = Console.ReadLine();
-            input = input.ToUpper();
-
-            if (input == "A")
-            {
-                Console.WriteLine("You've chosen road A.");
-                Console.WriteLine();
-
-                foreach (var p in poem[1])
-                {
-                    Console.WriteLine(p);
-                }
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine("You chosen road B:");
-                Console.WriteLine();
-                foreach (var p in poem[2])
-                {
-                    Console.WriteLine(p);
-                }
-                Console.WriteLine();
-            }
-
         }
 
         public static void EndGame()
@@ -178,7 +207,11 @@ namespace TextAdventure
                 Console.WriteLine(p);
             }
             Console.WriteLine();
-
+            Console.WriteLine("Found along the way:");
+            foreach (var item in found)
+            {
+                Console.WriteLine(item);
+            }
         }
 
     }
