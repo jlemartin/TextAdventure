@@ -1,12 +1,11 @@
 ﻿/*
- * [Text Adventure]
+ * [Poetry by Robert Frost]
  * by JLEM, 11/28/2020
  *  
  * This work is a derivative of 
  * "C# Adventure Game" by http://programmingisfun.com, used under CC BY.
  * https://creativecommons.org/licenses/by/4.0/
  * 
- * Poetry by Robert Frost
  */
 
 using System;
@@ -27,7 +26,7 @@ namespace TextAdventure
     public static class Game
     {
         // character name
-            static string CharacterName = "John Doe";
+            static string CharacterName = "Robert Frost";
         // things found on path
         static List<string> found = new List<string>();
         // keep traveling variable
@@ -92,8 +91,8 @@ namespace TextAdventure
         // print out game and overview
         public static void StartGame()
         {
-            Console.WriteLine("Game Title");
-            Console.WriteLine("Welcome to ...");
+            Console.WriteLine("Two Roads Diverged");
+            Console.WriteLine("The poetry of Robert Frost");
             NameCharacter();
             Game.Choice();
             Game.EndGame();
@@ -216,8 +215,26 @@ namespace TextAdventure
 
     }
 
-    class Item
+    public class Item
     {
+        public Item()
+        {
+            // Random feature
+            Random randomNumber = new Random();
+            int number;
+            number = randomNumber.Next(Items.Length);
+
+            Name = Items[number];
+            Description = Descriptions[number];
+            Console.Write("You found a " + Name + " (" + Description + ").");
+
+        }
+
+        public string Name = "Snowflake";
+        public string Description = "Individual crystal of snow";
+
+        string[] Items = { "shoe", "can", "pair of chopsticks" };
+        string[] Descriptions = { "Size 10 sneaker", "Empty root beer can", "Hunan Utensile" };
 
     }
 }
