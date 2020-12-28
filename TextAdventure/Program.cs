@@ -2,10 +2,6 @@
  * [Poetry by Robert Frost]
  * by JLEM, 11/28/2020
  *  
- * This work is a derivative of 
- * "C# Adventure Game" by http://programmingisfun.com, used under CC BY.
- * https://creativecommons.org/licenses/by/4.0/
- * 
  */
 
 using System;
@@ -18,7 +14,6 @@ namespace TextAdventure
         static void Main(string[] args)
         {
             Game.StartGame();
-            // Console.ReadKey();
        
         }
     }
@@ -109,35 +104,6 @@ namespace TextAdventure
 
         }
 
-        public static void Dialog(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
-        public static void Dialog(string message, string color)
-        {
-            if (color == "red")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else if (color == "green")
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-            else if (color == "yellow")
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
-            Console.WriteLine(message);
-            Console.ResetColor();
-        }
-
         public static void Choice()
         {
             do
@@ -215,26 +181,4 @@ namespace TextAdventure
 
     }
 
-    public class Item
-    {
-        public Item()
-        {
-            // Random feature
-            Random randomNumber = new Random();
-            int number;
-            number = randomNumber.Next(Items.Length);
-
-            Name = Items[number];
-            Description = Descriptions[number];
-            Console.Write("You found a " + Name + " (" + Description + ").");
-
-        }
-
-        public string Name = "Snowflake";
-        public string Description = "Individual crystal of snow";
-
-        string[] Items = { "shoe", "can", "pair of chopsticks" };
-        string[] Descriptions = { "Size 10 sneaker", "Empty root beer can", "Hunan Utensile" };
-
-    }
 }
